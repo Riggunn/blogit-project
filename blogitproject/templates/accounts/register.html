@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {% endblock title %}
+{% block content %}
+<!-- bradcam_area  -->
+<div class="bradcam_area breadcam_bg_2">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text text-center">
+                    <h3>Register</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ bradcam_area  -->
+<div class="section-top-border">
+    <div class="row">
+        <div class="col-lg-3 col-md-3"></div>
+        <div class="col-lg-6 col-md-6">
+            
+            <form action="{% url 'register' %}" method="POST">
+                {% csrf_token %} 
+                <h1>Register Form</h1>
+			<div>
+				<input type="text" name="username" placeholder="Username" required="" />
+            </div>
+            <div>
+				<input type="text" name="first_name" placeholder="firstname" required=""  />
+            </div>
+            <div>
+				<input type="text" name="last_name" placeholder="lastname" required="" />
+            </div>
+            <div>
+				<input type="text" name="email" placeholder="email" required="" />
+            </div>
+            <div>
+				<input type="password" name="password" placeholder="Password" required=""  />
+			</div>
+			<div>
+				<input type="password" name="password1" placeholder="ConfirmPassword" required=""  />
+			</div>
+			<div>
+				<input type="submit" value="Register" />
+				
+			</div>
+            </form>
+            <p>or</p>
+            <a href="{% url 'login' %}" class="genric-btn link-border">Login</a>
+        </div>
+        <div class="col-lg-3 col-md-3"></div>
+    </div>
+</div>
+
+{% endblock content %}
