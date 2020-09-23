@@ -34,6 +34,9 @@
         <![endif]-->
 
     {% include 'partials/_navbar.html' %}
+    <!-- messages -->
+    {% include 'partials/_alerts.html' %}
+    <!-- end messages -->
     {% block content %} {% endblock content %}
 
     
@@ -84,5 +87,12 @@
 
         });
     </script>
+    <script type="text/javascript">
+        function closeAlert() {
+            setTimeout(function(){ $(".alert").alert('close'); }, 5000);
+        }
+        closeAlert();
+    </script>
+
 </body>
 </html>
