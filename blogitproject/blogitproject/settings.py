@@ -145,8 +145,8 @@ DATETIME_FORMAT = 'd.m.Y HH:MM:SS'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-os.path.join(BASE_DIR, 'blogitproject/static')
-]
+    os.path.join(BASE_DIR, 'blogitproject/static')
+    ]
 # Media Folder Settings
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
