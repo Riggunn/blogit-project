@@ -27,7 +27,7 @@ class Profile(models.Model):
         def save(self, *args, **kwargs):
             self.profile_image_thumbnail = generate_profile_thumbnail(self.id, self.profile_image.name, 200, 200)
             
-            super(Profile, self).delete(*args, **kwargs)
+            super(Profile, self).save(*args, **kwargs)
         
 
 @receiver(post_save, sender=User)

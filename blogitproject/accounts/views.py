@@ -1,4 +1,3 @@
-
 # view.py -- accounts
 from django.shortcuts import render, redirect
 from django.contrib import auth
@@ -29,6 +28,7 @@ def register(request):
     if request.method == 'GET':
         return render(request, 'accounts/register.html', context=context)
     if request.method == 'POST':
+        print(request.POST)
         username = request.POST['username']
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']

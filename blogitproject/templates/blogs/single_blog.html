@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} | {{blog.title}} {% endblock title %}
+{% block content %}
+<!-- breadcrumb part start-->
+<section class="breadcrumb_part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb_iner">
+                    <h2>{{blog.title}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb part end-->
+<!--================Blog Area =================-->
+<section class="blog_area single-post-area section_padding">
+  <div class="container">
+     <div class="row">
+        <div class="col-lg-8 posts-list">
+           <div class="single-post">
+              <div class="feature-img">
+                 <img class="img-fluid" src="{{blog.image.url}}" alt="">
+              </div>
+              <div class="blog_details">
+                 <h2>{{blog.title}}
+                  {% if user.id == blog.author.user.id %}
+                     (<a href="#"><i class="far fa-edit"></i> Edit</a>)
+                  {% endif %}
+                 </h2>
+                 <ul class="blog-info-link mt-1 mb-1">
+                    <li><p><i class="far fa-user"></i> Travel, Lifestyle</p></li>
+                    <li><p><i class="far fa-calendar"></i> {{blog.created_at}} </p></li>
+                 </ul>
+                 <p class="excert">
+                    {{blog.text|linebreaks}}
+                 </p>
+              </div>
+           </div>
+           <div class="navigation-top">
+            <div class="d-sm-flex justify-content-between text-center">
+                <p class="like-info" style="cursor: pointer;" onclick="addOrRemoveLike({{blog.id}});">
+                    <a href="{% url 'add_or_remove_like' blog.id %}">
+                   <span class="align-middle">
+                       {% if profile.id in blog.likes %}
+                       <i  class="fa fa-heart-o" style="color: red;"></i>
+                       {% else %}
+                       <i  class="fa fa-heart-o"></i> {% endif %}
+                    </span> 
+                    {% if blog.likes %}
+                    <span id="numLikes">{{blog.likes|length}}</span> people like this
+                        {% else %}
+                    <span id="numLikes">0</span> people like this
+                        {% endif %}
+                 
+                 <span id="numLikes">{{blog.likes|length}}</span> people like this
+               </a>
+                 </p>
+               
+               
+            </div>
+           </div>
+           <div class="blog-author">
+              <div class="media align-items-center">
+                 <img src="{{blog.author.profile_image_thumbnail.url}}" alt="">
+                 <div class="media-body">
+                    <a href="#">
+                       <h4>{{blog.author.user.get_full_name}}</h4>
+                    </a>
+                    <p>{{blog.author.about}}</p>
+                 </div>
+              </div>
+           </div>
+           <div class="comments-area">
+              <h4> Comments</h4>
+              {% for comment in blog.comments.all %}
+              <div class="comment-list">
+                 <div class="single-comment justify-content-between d-flex">
+                    <div class="user justify-content-between d-flex">
+                       <div class="thumb">
+                          <img src="{{comment.author.profile_image_thumbnail.url}}" alt="">
+                       </div>
+                       <div class="desc">
+                          <p class="comment">
+                             {{comment.text|linebreaks}}
+                          </p>
+                          <div class="d-flex justify-content-between">
+                             <div class="d-flex align-items-center">
+                                <h5>
+                                   <a href="#">{{comment.author.user.get_full_name}}</a>
+                                </h5>
+                                <p class="date">{{comment.created_at}}</p>
+                                {% if user.id == comment.author.user.id %}
+                                 <p><a href="{% url 'delete_comment' blog.id comment.id %}" class="ml-2"><span style="color: red;">X</span></a></p>
+                                {% endif %}
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+              {% endfor %}
+              
+           <div class="comment-form">
+              <h4>Leave a Comment</h4>
+              <form class="form-contact comment_form" action="{% url 'leave_comment_to_blog' blog.id %}" method="POST" id="commentForm">
+                  {% csrf_token %}
+                 <div class="row">
+                    <div class="col-12">
+                       <div class="form-group">
+                          <textarea name="text" class="form-control w-100" name="comment" id="comment" cols="30" rows="9"
+                             placeholder="Write Comment"></textarea>
+                       </div>
+                    </div>
+                 </div>
+                 <div class="form-group mt-3">
+                    <button type="submit" class="btn_3 button-contactForm">Leave Comment</button>
+                 </div>
+              </form>
+           </div>
+        </div>
+        </div>
+        <div class="col-lg-4">
+                <div class="blog_right_sidebar">
+                    <aside class="single_sidebar_widget search_widget">
+                        <form action="#">
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder='Search Keyword'
+                                        onfocus="this.placeholder = ''"
+                                        onblur="this.placeholder = 'Search Keyword'">
+                                    <div class="input-group-append">
+                                        <button class="btn" type="button"><i class="ti-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="button rounded-0 primary-bg text-white w-100 btn_1"
+                                type="submit">Search</button>
+                        </form>
+                    </aside>
+
+                    
+
+                               
+
+                    <aside class="single_sidebar_widget newsletter_widget">
+                        <h4 class="widget_title">Newsletter</h4>
+
+                        <form action="#">
+                            <div class="form-group">
+                                <input type="email" class="form-control" onfocus="this.placeholder = ''"
+                                    onblur="this.placeholder = 'Enter email'" placeholder='Enter email' required>
+                            </div>
+                            <button class="button rounded-0 primary-bg text-white w-100 btn_1"
+                                type="submit">Subscribe</button>
+                        </form>
+                    </aside>
+                </div>
+            </div>
+     </div>
+  </div>
+</section>
+<!--=======xw=========Blog Area end =================-->
+{% endblock content %}

@@ -39,7 +39,6 @@ def user_profile_edit_page(request, username):
         # update Profile fields
         profile.status = status
         profile.about = about
-        
         try:
             is_image_changed = False
             if any(request.FILES):
