@@ -40,7 +40,6 @@ def user_profile_edit_page(request, username):
         profile.status = status
         profile.about = about
         try:
-            is_image_changed = False
             if any(request.FILES):
                 profile.profile_image = request.FILES['profile_image']
         except:
@@ -48,7 +47,7 @@ def user_profile_edit_page(request, username):
             return render(request, 'profiles/profile_edit.html', context=context)
         else:
             is_image_changed = True
-        user.save()
+        
         profile.save()
         if is_image_changed:
             profile.change_profile_image_thumbnail()

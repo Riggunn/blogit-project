@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'blogs',
     'profiles',
     'leads',
-]
+    'taggit',
+    'easy_thumbnails',
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

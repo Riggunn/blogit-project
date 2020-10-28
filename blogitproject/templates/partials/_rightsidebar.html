@@ -1,0 +1,73 @@
+{% load static %}
+{% load thumbnail %}
+
+<div class="col-lg-4">
+    <div class="blog_right_sidebar">
+        <aside class="single_sidebar_widget search_widget">
+            <form action="{% url 'index' %}" method="GET">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <input name="search" type="text" class="form-control" placeholder="Search Keyword" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'">
+                        <div class="input-group-append">
+                            <button class="btn" type="button"><i class="ti-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <button class="button rounded-0 primary-bg text-white w-100 btn_1" type="submit">Search</button>
+            </form>
+        </aside>
+
+        <aside class="single_sidebar_widget post_category_widget">
+            <h4 class="widget_title">Sorting</h4>
+            <ul class="list cat-list">
+                <li>
+                    <a href="/?sort_by=a-z" class="d-flex">
+                        <p>A-Z Sorting</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/?sort_by=z-a" class="d-flex">
+                        <p>Z-A Sorting</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/?sort_by=new-old" class="d-flex">
+                        <p>From newest to older</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/?sort_by=old-new" class="d-flex">
+                        <p>From older to newest</p>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <aside class="single_sidebar_widget popular_post_widget">
+            <h3 class="widget_title">Recent Blogs</h3>
+            {% for l_blog in latest_blogs %}
+            <div class="media post_item">
+                {% thumbnail l_blog.image 100x75 crop as thumb %}
+                <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="post">
+                <div class="media-body">
+                    <a href="{% url 'single_blog' l_blog.id %}">
+                        <h3>{{l_blog.title}}</h3>
+                    </a>
+                    <p>{{l_blog.created_at}}</p>
+                </div>
+            </div>
+            {% endfor %}
+
+        </aside>
+        <aside class="single_sidebar_widget tag_cloud_widget">
+            <h4 class="widget_title">Tag Clouds</h4>
+            <ul class="list">
+            {% for tag in tags %}
+                <li>
+                    <a href="/?filter_by_tag={{tag.name}}">{{tag.name}}</a>
+                </li>
+            {% endfor %}    
+            </ul>
+        </aside>
+    </div>
+</div>
