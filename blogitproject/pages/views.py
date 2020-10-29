@@ -28,10 +28,11 @@ def index(request):
                 'a-z': 'title',
                 'z-a': '-title',
                 'new-old': '-created_at',
-                'old-new': 'creted_at',
+                'old-new': 'created_at',
             }
             sort_by_param = sort_by_dict.get(sort_by)
-            blogs = blogs.order_by('title')
+            blogs = blogs.order_by(sort_by_param)
+            get_params += '&sort_by={0}'.format(sort_by)
 
         filter_by_tag = request.GET.get('filter_by_tag', '')
         if filter_by_tag:
