@@ -43,13 +43,25 @@
                             <li><a href="{% url 'single_blog' blog.id %}"><i class="far fa-comments"></i> {{blog.comments.all.count}} Comments</a></li>
                             <li><a href="{% url 'single_blog' blog.id %}">
                                 {% if profile.id in blog.likes %}
-                                <i id="likeColor" class="far fa-heart" style="color: red;"></i>
+                                <i id="likeColor" class="fa fa-heart" style="color: red;"></i>
                                 {% else %}
-                                <i id="likeColor" class="far fa-heart"></i>
+                                <i id="likeColor" class="fa fa-heart"></i>
                                 {% endif %}
                                 {{blog.likes|length}} People like this</a></li>
                         </ul>
+                        {% with names=blog.tags.names %}
+                    {% if names.count > 0 %}
+                    <div class="d-sm-flex justify-content-between text-center">
+                        <ul class="blog-info-link">
+                        {% for name in names %}
+                        <li><a href="#">{{name}}</a></li>
+                        {% endfor %}
+                    </ul>
                     </div>
+                    </div>
+                    
+                    {% endif %}
+                    {% endwith %}
                     </article>
                     {% endfor %}
                     
@@ -76,27 +88,7 @@
                     </nav>
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="blog_right_sidebar">
-                    <aside class="single_sidebar_widget search_widget">
-                        <form action="#">
-                            <div class="form-group">
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder='Search Keyword'
-                                        onfocus="this.placeholder = ''"
-                                        onblur="this.placeholder = 'Search Keyword'">
-                                    <div class="input-group-append">
-                                        <button class="btn" type="button"><i class="ti-search"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
-                                type="submit">Search</button>
-                        </form>
-                    </aside>
-                    
-                </div>
-            </div>
+            {% include 'partials/_rightsidebar.html' %}
         </div>
     </div>
 </section>

@@ -1,3 +1,4 @@
+# models.py — profiles
 from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User
@@ -6,6 +7,7 @@ from django.dispatch import receiver
 from profiles.utils import generate_profile_thumbnail
 
 # Create your models here.
+
 class Profile(models.Model):
         user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
         status = models.CharField(max_length=150, blank=True, default='')
@@ -19,19 +21,15 @@ class Profile(models.Model):
         def change_profile_image_thumbnail(self):
             self.profile_image_thumbnail = generate_profile_thumbnail(self.id, self.profile_image.name, 100, 100)
             self.save()
+        
         def delete(self, *args, **kwargs):
             if self.profile_image.name.split('/')[-1] != 'default_profile_image.png':
                 self.profile_image.delete(save=False)
                 self.profile_image_thumbnail.delete(save=False)
-        
-        def save(self, *args, **kwargs):
-            self.profile_image_thumbnail = generate_profile_thumbnail(self.id, self.profile_image.name, 200, 200)
-            
-            super(Profile, self).save(*args, **kwargs)
-        
+                super(Profile, self).delete(*args, **kwargs)
 
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, *args,**kwargs):
+def create_user_profile(sender, instance, created, *args, **kwargs):
     if created:
         profile = Profile()
         profile.user = instance
