@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'leads',
     'taggit',
     'easy_thumbnails',
+    'widget_tweaks',
     ]
 
 MIDDLEWARE = [
@@ -158,3 +160,11 @@ MESSAGE_TAGS = {
     messages.INFO: 'success',
     messages.ERROR: 'danger'
     }
+
+# EMAIL SETTINGS
+EMAIL_HOST  = 'smtp.yandex.ru'
+EMAIL_HOST_USER = 'jonnyfase@yandex.ru'
+EMAIL_HOST_PASSWORD = 'kiev449019486'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+

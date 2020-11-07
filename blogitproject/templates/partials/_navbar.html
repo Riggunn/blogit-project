@@ -30,30 +30,26 @@
                                                 <li><a href="single-blog.html">single-blog</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="#">pages <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                 <li><a href="elements.html">elements</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html">Contact</a></li>
+
+                                        <li><a href="{% url 'contact_page' %}">Contact</a></li>
                                     </ul>
                                 </nav>
                             </div>
                         </div>
                         <div class="col-xl-3 col-lg-3 d-none d-lg-block">
-                            <h2 style="color: whitesmoke;"> 
+                            <h2 style="color: whitesmoke;">
                                 {% if user.is_authenticated %}
                                 <div class="hearer_icon d-flex align-items-center">
                                     <p class="mr-3">Welcome, {{user.get_username}}!</p>
-                                        <a href="{% url 'logout' %}" class="genric-btn primary">Logout</a>
+                                    <a href="{% url 'logout' %}" class="genric-btn primary">Logout</a>
                                 </div>
                                 {% else %}
                                 <div class="hearer_icon d-flex align-items-center">
                                     <a href="{% url 'login' %}" class="genric-btn primary">Login</a>
                                 </div>
                                 {% endif %}
-                                </h2>
-                            
+                            </h2>
+
                         </div>
                         <div class="col-12">
                             <div class="mobile_menu d-block d-lg-none"></div>
